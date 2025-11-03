@@ -1,0 +1,82 @@
+.footer{
+    background-image: url(https://trungdo.vn/wp-content/uploads/2021/08/NEN-FOOTER.jpg);
+    background-position: center right;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-style: solid;
+    border-width: 1px 0 0 0;
+    border-color: #F1F1F1;
+    transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+    padding: 50px 0 20px 0;
+    position: relative;
+
+    .footer-logo{
+        max-width: 100px;
+        border-radius: 10px;
+        text-align: center;
+        display: inline-block;
+        margin-bottom:15px;
+        img{
+            border-radius: 10px;
+        }
+    }
+
+    .company{
+        color:#fff;
+        max-width:80%;
+        margin:0 auto;
+        margin-bottom:15px;
+        font-weight: 500;
+    }
+
+    .social-list{
+        gap:15px;
+
+        .social-item{
+            width:25px;
+            height:25px;
+            background: #fff;
+            border-radius: 5px;
+            text-align: center;
+            line-height:25px;
+        }
+    }
+}
+
+.ft-panel{
+    padding-top:25px;
+    position: relative;
+    &::before{
+        content:'';
+        display: block;
+        width:80px;
+        height:2px;
+        background: #fff;
+        position: absolute;
+        top:0;
+        left:0;
+    }
+    .ft-panel_heading{
+        font-weight: 500;
+        margin-bottom:20px;
+        color:#fff;
+    }
+
+    svg{
+        max-width:10px;
+        margin-right:15px;
+    }
+    a{
+        color:#fff;
+        font-size:13px;
+    }
+    li{
+        margin-bottom:15px;
+    }
+}
+.copyright{
+    padding:15px 0;
+    background: #1C1A23;
+    color:#fff;
+    font-size:12px;
+}
