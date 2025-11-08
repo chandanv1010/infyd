@@ -18,6 +18,7 @@
 @import "../vendor/frontend/core/plugins/jquery-nice-select-1.1.0/css/nice-select.css";
 @import "../vendor/frontend/resources/config.css";
  
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 // ================
 // IMPORT FONTS
 // ================
@@ -35,7 +36,7 @@
   --hover-color: var(--primary-color);
   --second-font: "UTM Avo";
   --heading-font: "utm_eremitageregular";
-  --main-font: 'FZ Poppins';
+  --main-font: 'Montserrat';
 }
 
 // ================
