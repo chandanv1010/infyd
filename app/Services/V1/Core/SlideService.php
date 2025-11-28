@@ -151,10 +151,12 @@ class SlideService extends BaseService
         $slides = $this->slideRepository->findByCondition(...$this->getSlideAgrument($array));
         $temp = [];
         foreach($slides as $key => $val){
-            $temp[$val->keyword]['name'] = $val->name;
-            $temp[$val->keyword]['short_code'] = $val->short_code;
-            $temp[$val->keyword]['item'] = $val->item[$language];
-            $temp[$val->keyword]['setting'] = $val->setting;
+            if($val && isset($val->keyword)){
+                $temp[$val->keyword]['name'] = $val->name ?? '';
+                $temp[$val->keyword]['short_code'] = $val->short_code ?? '';
+                $temp[$val->keyword]['item'] = isset($val->item[$language]) && is_array($val->item[$language]) ? $val->item[$language] : [];
+                $temp[$val->keyword]['setting'] = $val->setting ?? [];
+            }
         }
         return $temp;
     }

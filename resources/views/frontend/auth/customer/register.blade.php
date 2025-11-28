@@ -21,18 +21,18 @@
                 @php
                     $slideKeyword = App\Enums\SlideEnum::WHYCHOOSE;
                 @endphp  
-                @if(count($slides[$slideKeyword]['item']))
+                @if(isset($slides[$slideKeyword]) && isset($slides[$slideKeyword]['item']) && is_array($slides[$slideKeyword]['item']) && count($slides[$slideKeyword]['item']) > 0)
                     <div class="panel-why-choose">
                         <div class="uk-container uk-container-center">
                             <div class="background-overlay image img-cover">
-                                <img src="{{ $system['background_1'] }}" alt="">
+                                <img src="{{ $system['background_1'] ?? '' }}" alt="">
                             </div>
                             <div class="bl">
                                 <div class="panel-head">
                                     <h2 class="heading-1">
-                                        <span>{{ $slides[$slideKeyword]['name'] }}</span>
+                                        <span>{{ $slides[$slideKeyword]['name'] ?? '' }}</span>
                                     </h2>
-                                    <div class="description">{{ $slides[$slideKeyword]['short_code'] }}</div>
+                                    <div class="description">{{ $slides[$slideKeyword]['short_code'] ?? '' }}</div>
                                 </div>
                                 <div class="panel-body">
                                     <div class="swiper-container">
@@ -41,13 +41,13 @@
                                                 <div class="swiper-slide">
                                                     <div class="slide-item">
                                                         <a href="" class="image img-cover">
-                                                            <img src="{{ $val['image'] }}" alt="">
+                                                            <img src="{{ $val['image'] ?? '' }}" alt="">
                                                         </a>
                                                         <div class="name">
-                                                            {{ $val['name'] }}
+                                                            {{ $val['name'] ?? '' }}
                                                         </div>
                                                         <div class="description">
-                                                            {{ $val['alt'] }}
+                                                            {{ $val['alt'] ?? '' }}
                                                         </div>
                                                     </div>
                                                 </div>
