@@ -44,21 +44,42 @@ class CustomerService extends BaseService
         DB::beginTransaction();
         try{
             $payload = $request->except(['_token','send','re_password']);
+            
+            // Xử lý birthday nếu có
             if(isset($payload['birthday']) && ($payload['birthday'] != null)){
                 $payload['birthday'] = $this->convertBirthdayDate($payload['birthday']);
             }
-            if(!isset($payload['customer_catalogue_id'])){
+            
+            // Đảm bảo customer_catalogue_id luôn có giá trị
+            if(!isset($payload['customer_catalogue_id']) || empty($payload['customer_catalogue_id'])){
                 $payload['customer_catalogue_id'] = 1;
-                $payload['publish'] = 2;
             }
-            $payload['password'] = Hash::make($payload['password']);
+            
+            // Đảm bảo publish có giá trị
+            if(!isset($payload['publish'])){
+                $payload['publish'] = 2; // 2 = active
+            }
+            
+            // Hash password
+            if(isset($payload['password']) && !empty($payload['password'])){
+                $payload['password'] = Hash::make($payload['password']);
+            } else {
+                throw new \Exception('Mật khẩu không được để trống');
+            }
+            
+            // Tạo customer
             $customer = $this->customerRepository->create($payload);
+            
             DB::commit();
-            return true;
+            return $customer;
+        }catch(\Illuminate\Database\QueryException $e ){
+            DB::rollBack();
+            Log::error('Customer registration database error: ' . $e->getMessage());
+            throw new \Exception('Lỗi cơ sở dữ liệu: ' . $e->getMessage());
         }catch(\Exception $e ){
             DB::rollBack();
-            echo $e->getMessage();die();
-            return false;
+            Log::error('Customer registration error: ' . $e->getMessage());
+            throw $e;
         }
     }
 

@@ -64,10 +64,31 @@ class AuthController extends FrontendController
     }
     
     public function registerAccount(AuthRegisterRequest $request){
-        if($this->customerService->create($request)){
-           return redirect()->route('home.index')->with('success','Đăng kí tài khoản thành công');
+        try {
+            $customer = $this->customerService->create($request);
+            
+            if($customer && $customer !== false && is_object($customer)){
+                // Tự động đăng nhập sau khi đăng ký thành công
+                Auth::guard('customer')->login($customer);
+                $request->session()->regenerate();
+                
+                return redirect()->route('home.index')->with('success','Đăng ký tài khoản thành công! Chào mừng bạn đến với hệ thống.');
+            }
+            
+            return redirect()->route('customer.register')
+                ->withInput($request->except('password', 're_password'))
+                ->with('error','Đăng ký không thành công. Vui lòng thử lại sau.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->route('customer.register')
+                ->withInput($request->except('password', 're_password'))
+                ->withErrors($e->errors())
+                ->with('error','Vui lòng kiểm tra lại thông tin đăng ký.');
+        } catch (\Exception $e) {
+            \Log::error('Registration error: ' . $e->getMessage());
+            return redirect()->route('customer.register')
+                ->withInput($request->except('password', 're_password'))
+                ->with('error','Có lỗi xảy ra khi đăng ký. Vui lòng thử lại sau.');
         }
-        return redirect()->route('customer.register')->with('error','Thêm mới bản ghi không thành công. Hãy thử lại');
     }
 
     public function forgotCustomerPassword(){

@@ -66,6 +66,29 @@
                             <div class="register-frm">
                                 <h2 class="heading-1"><span>Đăng ký</span></h2>
                                 <div class="subtitle">Đăng ký ngay để nhận ưu đãi từ chúng tôi</div>
+                                
+                                @if(session('error'))
+                                    <div class="alert alert-error" style="background: #fee; color: #c33; padding: 12px 15px; border-radius: 6px; margin-bottom: 20px; border: 1px solid #fcc;">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
+                                
+                                @if(session('success'))
+                                    <div class="alert alert-success" style="background: #efe; color: #3c3; padding: 12px 15px; border-radius: 6px; margin-bottom: 20px; border: 1px solid #cfc;">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+                                
+                                @if($errors->any())
+                                    <div class="alert alert-error" style="background: #fee; color: #c33; padding: 12px 15px; border-radius: 6px; margin-bottom: 20px; border: 1px solid #fcc;">
+                                        <ul style="margin: 0; padding-left: 20px;">
+                                            @foreach($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                
                                 <form action="{{ route('customer.reg') }}" method="POST" class="rf">
                                     @csrf
                                     <input type="hidden" name="customer_catalogue_id" value="1">
@@ -83,15 +106,15 @@
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" style="position: relative;">
                                         <label for="password">Mật khẩu</label>
-                                        <input type="password" id="password" name="password" placeholder="Mật khẩu">
-                                        <button type="button" class="password-toggle" onclick="togglePassword('password')">
-                                            <svg class="eye-icon" id="eye-password" fill="currentColor" viewBox="0 0 20 20" style="display: block;">
+                                        <input type="password" id="password" name="password" placeholder="Mật khẩu" style="padding-right: 45px;">
+                                        <button type="button" class="password-toggle" onclick="togglePassword('password')" style="position: absolute; right: 15px; top: 42px; background: none; border: none; cursor: pointer; padding: 5px; color: #999;">
+                                            <svg class="eye-icon" id="eye-password" fill="currentColor" viewBox="0 0 20 20" style="display: block; width: 20px; height: 20px;">
                                                 <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
                                                 <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
                                             </svg>
-                                            <svg class="eye-icon" id="eye-slash-password" fill="currentColor" viewBox="0 0 20 20" style="display: none;">
+                                            <svg class="eye-icon" id="eye-slash-password" fill="currentColor" viewBox="0 0 20 20" style="display: none; width: 20px; height: 20px;">
                                                 <path fill-rule="evenodd" d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z" clip-rule="evenodd"></path>
                                                 <path d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z"></path>
                                             </svg>
@@ -100,15 +123,15 @@
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" style="position: relative;">
                                         <label for="re_password">Xác nhận mật khẩu</label>
-                                        <input type="password" id="re_password" name="re_password" placeholder="Xác nhận mật khẩu">
-                                        <button type="button" class="password-toggle" onclick="togglePassword('re_password')">
-                                            <svg class="eye-icon" id="eye-re_password" fill="currentColor" viewBox="0 0 20 20">
+                                        <input type="password" id="re_password" name="re_password" placeholder="Xác nhận mật khẩu" style="padding-right: 45px;">
+                                        <button type="button" class="password-toggle" onclick="togglePassword('re_password')" style="position: absolute; right: 15px; top: 42px; background: none; border: none; cursor: pointer; padding: 5px; color: #999;">
+                                            <svg class="eye-icon" id="eye-re_password" fill="currentColor" viewBox="0 0 20 20" style="display: block; width: 20px; height: 20px;">
                                                 <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
                                                 <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
                                             </svg>
-                                            <svg class="eye-icon" id="eye-slash-re_password" fill="currentColor" viewBox="0 0 20 20" style="display: none;">
+                                            <svg class="eye-icon" id="eye-slash-re_password" fill="currentColor" viewBox="0 0 20 20" style="display: none; width: 20px; height: 20px;">
                                                 <path fill-rule="evenodd" d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z" clip-rule="evenodd"></path>
                                                 <path d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z"></path>
                                             </svg>
