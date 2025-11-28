@@ -65,6 +65,7 @@ class AuthController extends FrontendController
     
     public function registerAccount(AuthRegisterRequest $request){
         try {
+            $request->merge(['publish' => 1]);
             $customer = $this->customerService->create($request);
             
             if($customer && $customer !== false && is_object($customer)){
