@@ -71,8 +71,15 @@ class CustomerService extends BaseService
                 $payload['birthday'] = $this->convertBirthdayDate($payload['birthday']);
             }
 
-            if(isset($payload['new_password'])){
-                $payload['password'] = $payload['new_password'];
+            // Handle password update
+            if(isset($payload['new_password']) && !empty($payload['new_password'])){
+                $payload['password'] = Hash::make($payload['new_password']);
+                unset($payload['old_password']);
+                unset($payload['new_password']);
+                unset($payload['re_new_password']);
+            } else {
+                // Don't update password if not provided
+                unset($payload['password']);
                 unset($payload['old_password']);
                 unset($payload['new_password']);
                 unset($payload['re_new_password']);

@@ -81,6 +81,10 @@ class AppServiceProvider extends ServiceProvider
                 $composer = app()->make($val, ['language' => $language->id]);
                 $composer->compose($view);
             }
+            
+            // Add customer auth to all frontend views
+            $customerComposer = app()->make(CustomerComposer::class);
+            $customerComposer->compose($view);
         });
 
       

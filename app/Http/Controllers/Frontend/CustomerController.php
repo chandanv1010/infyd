@@ -89,8 +89,10 @@ class CustomerController extends FrontendController
     //     return redirect()->route('customer.profile')->with('success', 'Mật khẩu đã được thay đổi thành công.');
     // }
 
-    public function logout(){
+    public function logout(Request $request){
         Auth::guard('customer')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect()->route('home.index')->with('success', 'Bạn đã đăng xuất khỏi hệ thống.');
     }
 

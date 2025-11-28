@@ -135,12 +135,15 @@ class AuthController extends FrontendController
             'email' => $request->input('email'),
             'password' => $request->input('password')
         ];
-        if(Auth::guard('customer')->attempt($credentials)){
+        
+        $remember = $request->has('rememberMe');
+        
+        if(Auth::guard('customer')->attempt($credentials, $remember)){
             $user = Auth::guard('customer')->user();
             $request->session()->regenerate();
-            return redirect()->route('home.index')->with('success', 'Đăng nhập thành công');
+            return redirect()->intended(route('home.index'))->with('success', 'Đăng nhập thành công');
         }
-        return redirect()->route('home.index')->with('error','Email hoặc Mật khẩu không chính xác');
+        return redirect()->route('fe.auth.login')->with('error','Email hoặc Mật khẩu không chính xác');
     }
 
 
