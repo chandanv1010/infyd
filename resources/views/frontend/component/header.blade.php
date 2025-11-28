@@ -8,6 +8,7 @@
                 </div>
                 <div class="header-top__widget uk-flex uk-flex-middle">
                     @include('frontend.component.navigation')
+                    @include('frontend.component.auth')
                     <div class="hd-menu-search ml20 mr20">
 						<a class="open-search icon no-hover" title="Tìm kiếm"><i class="fa fa-search" aria-hidden="true"></i></a>
 						<div class="dropdown-search">
@@ -28,6 +29,9 @@
 			<span>Menu</span>
 		</a>
 		<div class="logo"><a href="" title="Logo"><img src="<?php echo $system['homepage_logo']; ?>" alt="Logo" /></a></div>
+		<div class="mobile-header-auth">
+			@include('frontend.component.auth')
+		</div>
 		<div class="mobile-hotline">
 			<a class="value" href="tel:<?php echo $system['contact_hotline']; ?>" title="Tư vấn bán hàng"><?php echo $system['contact_hotline']; ?></a>
 		</div>

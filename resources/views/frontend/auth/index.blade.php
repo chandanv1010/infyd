@@ -4,8 +4,18 @@
             <h2 class="modal-title">Đăng nhập</h2>
         </div>
         <div class="modal-body">
-            <div class="error-message" id="errorMessage"></div>
-            <div class="success-message" id="successMessage"></div>
+            @if(session('error'))
+                <div class="error-message" id="errorMessage" style="display: block; color: red; margin-bottom: 15px;">
+                    {{ session('error') }}
+                </div>
+            @endif
+            @if(session('success'))
+                <div class="success-message" id="successMessage" style="display: block; color: green; margin-bottom: 15px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+            <div class="error-message" id="errorMessage" style="display: none;"></div>
+            <div class="success-message" id="successMessage" style="display: none;"></div>
             <form action="{{ route('fe.auth.dologin') }}" method="POST" id="loginForm">
                 @csrf
                 <div class="form-group">
