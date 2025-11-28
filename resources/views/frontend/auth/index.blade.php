@@ -1,5 +1,6 @@
 <div class="uk-modal" id="modal-login">
-    <div class="modal uk-modal-dialog">
+    <div class="uk-modal-dialog">
+        <a class="uk-modal-close uk-close"></a>
         <div class="modal-header">
             <h2 class="modal-title">Đăng nhập</h2>
         </div>
